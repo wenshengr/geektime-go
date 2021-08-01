@@ -1,0 +1,9 @@
+*.exe
+*.test
+
+bin/
+
+# Develop tools
+.vscode/
+.idea/*
+*.swp
