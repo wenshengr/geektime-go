@@ -1,1 +1,1 @@
-# geektime-learn-go
+# geektime-go
