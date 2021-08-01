@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"golang.org/x/sync/errgroup"
 	"io"
 	"log"
 	"net/http"
@@ -11,15 +10,22 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"golang.org/x/sync/errgroup"
 )
 
-
-func main()  {
+// ### 第三周 并行编程
+// #### 作业内容
+// ##### 1. 基于 errgroup 实现一个 http server 的启动和关闭 ，以及 linux signal 信号的注册和处理，要保证能够一个退出，全部注销退出。
+// - 实现一个 http server 的启动和关闭
+// - linux signal 信号的注册和处理
+// - errgroup 实现多个 goroutine级联退出
+func main() {
 	g, ctx := errgroup.WithContext(context.Background())
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w,"hello,word!")
+		io.WriteString(w, "hello,word!")
 	})
 
 	// 模拟单个服务错误退出
@@ -28,7 +34,7 @@ func main()  {
 		serverOut <- struct{}{}
 	})
 
-	server := http.Server{Addr:":8085", Handler: mux}
+	server := http.Server{Addr: ":8085", Handler: mux}
 
 	// g1
 	// g1 退出了所有的协程
@@ -79,4 +85,3 @@ func main()  {
 
 	fmt.Printf("errgroup exiting: %+v\n", g.Wait())
 }
-
