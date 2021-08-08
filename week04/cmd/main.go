@@ -39,3 +39,7 @@ func main() {
 		}
 	}
 }
+
+//cd geektime-go/week04/cmd
+//go build
+//./cmd -conf ../configs
