@@ -95,7 +95,8 @@ func MemStat() MemStatus {
 	runtime.ReadMemStats(memStat)
 	mem := MemStatus{}
 	mem.Self = memStat.Alloc
-	
+
+	// 内存情况 win10无法获取
 
 	return mem
 }
